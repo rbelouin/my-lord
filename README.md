@@ -8,3 +8,12 @@ I discovered the [Music Suite](http://music-suite.github.io/docs/ref/) a few mon
 ### Requirements
 
 The GHC/Cabal/Latex/Lilypond/Music-Suite stack is not very easy to maintain, that's why I created a [Docker image](https://github.com/rbelouin/docker-music-suite) in order to play with it. So install [Docker](https://www.docker.com) and that's all!
+
+### How to build the score
+
+Make sure the Docker service is started, then:
+
+```sh
+docker pull rbelouin/music-suite:latest # run it once, it may take a few minutes
+docker run -it --rm -v $PWD/scores:/root/scores rbelouin/music-suite /bin/bash -c "cd scores/ && music2pdf my-lord.music"
+```

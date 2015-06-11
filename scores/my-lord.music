@@ -1,0 +1,15 @@
+let
+  -- Gospel music is all about triads, let's define the main I triads
+  itriad = f <> a <> c'
+  itriad' = octavesUp 1 itriad
+  itriad_ = octavesDown 1 itriad
+
+  itriad2 = a <> c' <> f'
+  itriad2' = octavesUp 1 itriad2
+  itriad2_ = octavesDown 1 itriad2
+
+  itriad3 = c' <> f' <> a'
+  itriad3' = octavesUp 1 itriad3
+  itriad3_ = octavesDown 1 itriad3
+
+in asScore $ itriad |> itriad' |> itriad_ |> itriad2 |> itriad2' |> itriad2_ |> itriad3 |> itriad3' |> itriad3_
