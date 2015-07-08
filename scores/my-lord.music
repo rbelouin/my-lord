@@ -12,4 +12,21 @@ let
   itriad3' = octavesUp 1 itriad3
   itriad3_ = octavesDown 1 itriad3
 
-in asScore $ itriad |> itriad' |> itriad_ |> itriad2 |> itriad2' |> itriad2_ |> itriad3 |> itriad3' |> itriad3_
+  -- ii triads
+  iitriad = g <> bb <> d'
+  iitriad' = octavesUp 1 iitriad
+  iitriad_ = octavesDown 1 iitriad
+
+  iitriad2 = bb <> d' <> g'
+  iitriad2' = octavesUp 1 iitriad2
+  iitriad2_ = octavesDown 1 iitriad2
+
+  iitriad3 = d' <> g' <> bb'
+  iitriad3' = octavesUp 1 iitriad3
+  iitriad3_ = octavesDown 1 iitriad3
+
+  -- triad groups
+  itriads = itriad |> itriad' |> itriad_ |> itriad2 |> itriad2' |> itriad2_ |> itriad3 |> itriad3' |> itriad3_
+  iitriads = iitriad |> iitriad' |> iitriad_ |> iitriad2 |> iitriad2' |> iitriad2_ |> iitriad3 |> iitriad3' |> iitriad3_
+
+in asScore $ itriads |> iitriads
