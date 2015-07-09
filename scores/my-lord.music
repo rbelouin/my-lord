@@ -15,4 +15,8 @@ let
   tiis = generateTriads g bb d'
   [tii_, tii2_, tii3_, tii, tii2, tii3, tii'] = tiis
 
-in asScore $ scat tIs |> scat tiis
+  -- iii triads
+  tiiis = generateTriads a c' e'
+  [tiii_, tiii2_, tiii3_, tiii, tiii2, tiii3, tiii'] = tiiis
+
+in asScore $ scat tIs |> scat tiis |> scat tiiis
