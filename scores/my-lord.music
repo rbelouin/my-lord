@@ -7,7 +7,19 @@ let
 
   generateTriads n1 n2 n3 = fmap pcat $ take3s $ join $ zipWith octavesUp [(-1), 0, 1] $ repeat [n1, n2, n3]
 
-  mergeRythmAndNotes rythms notes = scat $ zipWith stretch ((/4) <$> rythms) notes
+  -- Aliases for rythm definition: Left for rests (r) and Right for notes (n)
+  r :: (Num a) => a -> Either a a
+  r = Left
+
+  n :: (Num a) => a -> Either a a
+  n = Right
+
+  mergeRythmAndNotes rythms notes = mcatMaybes $ scat $ merge rythms notes
+    where
+      merge [] _ = []
+      merge _ [] = []
+      merge ((Left rythm) : rs) ns = (stretch (rythm / 4) rest) : (merge rs ns)
+      merge ((Right rythm) : rs) (n : ns) = (stretch (rythm / 4) n) : (merge rs ns)
 
   -- I triads
   tIs = generateTriads f a c'
@@ -49,11 +61,11 @@ let
 
   rythmA = phrase1 ++ phrase2 ++ phrase3 ++ phrase4 ++ phrase5
     where
-      phrase1 = [1, 1, 1, 1, 1, 1]
-      phrase2 = [1, 1, 1, 1, 3/2, 1/2]
-      phrase3 = [1, 1, 2, 2, 1, 1, 2, 2]
-      phrase4 = [1, 1, 3, 1, 2, 2, 3, 1, 2]
-      phrase5 = [1, 1, 3, 1, 2, 2, 4]
+      phrase1 = [n 1, n 1, r 4, n 1, n 1, n 1, n 1, r 6]
+      phrase2 = [n 1, n 1, r 4, n 1, n 1, n (3/2), n (1/2), r 4]
+      phrase3 = [n 1, n 1, n 2, n 2, r 2, n 1, n 1, n 2, n 2, r 2]
+      phrase4 = [n 1, n 1, n 3, n 1, n 2, n 2, n 3, n 1, n 2]
+      phrase5 = [n 1, n 1, n 3, n 1, n 2, n 2, n 4]
 
   partA = mergeRythmAndNotes rythmA voicingA
 
