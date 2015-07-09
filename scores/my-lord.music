@@ -15,8 +15,24 @@ let
   tiis = generateTriads g bb d'
   [tii_, tii2_, tii3_, tii, tii2, tii3, tii'] = tiis
 
+  -- ii° triads
+  tiids = generateTriads g bb db'
+  [tiid_, tiid2_, tiid3_, tiid, tiid2, tiid3, tiid'] = tiids
+
   -- iii triads
   tiiis = generateTriads a c' e'
   [tiii_, tiii2_, tiii3_, tiii, tiii2, tiii3, tiii'] = tiiis
 
-in asScore $ scat tIs |> scat tiis |> scat tiiis
+  -- iii° triads
+  tiiids = generateTriads a c' eb'
+  [tiiid_, tiiid2_, tiiid3_, tiiid, tiiid2, tiiid3, tiiid'] = tiiids
+
+  -- V triads
+  tVs = generateTriads c e g
+  [tV_, tV2_, tV3_, tV, tV2, tV3, tV'] = tVs
+
+  -- vii° triads
+  tviids = generateTriads e g bb
+  [tviid_, tviid2_, tviid3_, tviid, tviid2, tviid3, tviid'] = tviids
+
+in asScore $ scat tIs |> scat tiis |> scat tiids |> scat tiiis |> scat tiiids |> scat tVs |> scat tviids
