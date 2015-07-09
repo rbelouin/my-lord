@@ -1,32 +1,18 @@
 let
-  -- Gospel music is all about triads, let's define the main I triads
-  itriad = f <> a <> c'
-  itriad' = octavesUp 1 itriad
-  itriad_ = octavesDown 1 itriad
+  -- Gospel music is often sung by a choir divided into three voices: Soprano, Alto & Tenor
+  -- Let's define the triads (group of three notes) we will use in our arrangement
 
-  itriad2 = a <> c' <> f'
-  itriad2' = octavesUp 1 itriad2
-  itriad2_ = octavesDown 1 itriad2
+  take3s (x:x':x'':xs) = [x, x', x''] : (take3s (x':x'':xs))
+  take3s _ = []
 
-  itriad3 = c' <> f' <> a'
-  itriad3' = octavesUp 1 itriad3
-  itriad3_ = octavesDown 1 itriad3
+  generateTriads n1 n2 n3 = fmap pcat $ take3s $ join $ zipWith octavesUp [(-1), 0, 1] $ repeat [n1, n2, n3]
+
+  -- I triads
+  tIs = generateTriads f a c'
+  [tI_, tI2_, tI3_, tI, tI2, tI3, tI'] = tIs
 
   -- ii triads
-  iitriad = g <> bb <> d'
-  iitriad' = octavesUp 1 iitriad
-  iitriad_ = octavesDown 1 iitriad
+  tiis = generateTriads g bb d'
+  [tii_, tii2_, tii3_, tii, tii2, tii3, tii'] = tiis
 
-  iitriad2 = bb <> d' <> g'
-  iitriad2' = octavesUp 1 iitriad2
-  iitriad2_ = octavesDown 1 iitriad2
-
-  iitriad3 = d' <> g' <> bb'
-  iitriad3' = octavesUp 1 iitriad3
-  iitriad3_ = octavesDown 1 iitriad3
-
-  -- triad groups
-  itriads = itriad |> itriad' |> itriad_ |> itriad2 |> itriad2' |> itriad2_ |> itriad3 |> itriad3' |> itriad3_
-  iitriads = iitriad |> iitriad' |> iitriad_ |> iitriad2 |> iitriad2' |> iitriad2_ |> iitriad3 |> iitriad3' |> iitriad3_
-
-in asScore $ itriads |> iitriads
+in asScore $ scat tIs |> scat tiis
