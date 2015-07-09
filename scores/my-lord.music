@@ -35,4 +35,14 @@ let
   tviids = generateTriads e g bb
   [tviid_, tviid2_, tviid3_, tviid, tviid2, tviid3, tviid'] = tviids
 
-in asScore $ scat tIs |> scat tiis |> scat tiids |> scat tiiis |> scat tiiids |> scat tVs |> scat tviids
+
+  -- Part A
+  voicingA = phrase1 |> phrase2 |> phrase3 |> phrase4 |> phrase5
+    where
+      phrase1 = scat [tI3_, tI3_, tii2_, tI3_, tI2_, tI2_]
+      phrase2 = scat [tI, tI, tI3_, tii3_, tiii3_, tiii3_]
+      phrase3 = scat [tii, tV2, tiiid2_, tiiid2_, tii3_, tviid3_, tI2_, tI2_]
+      phrase4 = scat [tii3_, tii3_ ,tI3_, tI2_, tii2_, tii2_, tI2_, tiid2_, tiiid2_]
+      phrase5 = scat [tiid3_, tiid3_, tI3_, tI3_, tii2_, tii2_, tI2_]
+
+in asScore $ voicingA
