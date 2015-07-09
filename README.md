@@ -17,5 +17,6 @@ Make sure the Docker service is started, then:
 docker pull rbelouin/music-suite:latest # run it once, it may take a few minutes
 make pdf
 make midi
-make [all] # generate a PDF and a MIDI file
+make png
+make [all] # generate a PDF, a MIDI, and a PNG file
 ```
