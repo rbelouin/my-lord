@@ -7,6 +7,8 @@ let
 
   generateTriads n1 n2 n3 = fmap pcat $ take3s $ join $ zipWith octavesUp [(-1), 0, 1] $ repeat [n1, n2, n3]
 
+  mergeRythmAndNotes rythms notes = scat $ zipWith stretch ((/4) <$> rythms) notes
+
   -- I triads
   tIs = generateTriads f a c'
   [tI_, tI2_, tI3_, tI, tI2, tI3, tI'] = tIs
@@ -37,12 +39,22 @@ let
 
 
   -- Part A
-  voicingA = phrase1 |> phrase2 |> phrase3 |> phrase4 |> phrase5
+  voicingA = phrase1 ++ phrase2 ++ phrase3 ++ phrase4 ++ phrase5
     where
-      phrase1 = scat [tI3_, tI3_, tii2_, tI3_, tI2_, tI2_]
-      phrase2 = scat [tI, tI, tI3_, tii3_, tiii3_, tiii3_]
-      phrase3 = scat [tii, tV2, tiiid2_, tiiid2_, tii3_, tviid3_, tI2_, tI2_]
-      phrase4 = scat [tii3_, tii3_ ,tI3_, tI2_, tii2_, tii2_, tI2_, tiid2_, tiiid2_]
-      phrase5 = scat [tiid3_, tiid3_, tI3_, tI3_, tii2_, tii2_, tI2_]
+      phrase1 = [tI3_, tI3_, tii2_, tI3_, tI2_, tI2_]
+      phrase2 = [tI, tI, tI3_, tii3_, tiii3_, tiii3_]
+      phrase3 = [tii, tV2, tiiid2_, tiiid2_, tii3_, tviid3_, tI2_, tI2_]
+      phrase4 = [tii3_, tii3_ ,tI3_, tI2_, tii2_, tii2_, tI2_, tiid2_, tiiid2_]
+      phrase5 = [tiid3_, tiid3_, tI3_, tI3_, tii2_, tii2_, tI2_]
 
-in asScore $ voicingA
+  rythmA = phrase1 ++ phrase2 ++ phrase3 ++ phrase4 ++ phrase5
+    where
+      phrase1 = [1, 1, 1, 1, 1, 1]
+      phrase2 = [1, 1, 1, 1, 3/2, 1/2]
+      phrase3 = [1, 1, 2, 2, 1, 1, 2, 2]
+      phrase4 = [1, 1, 3, 1, 2, 2, 3, 1, 2]
+      phrase5 = [1, 1, 3, 1, 2, 2, 4]
+
+  partA = mergeRythmAndNotes rythmA voicingA
+
+in asScore partA
