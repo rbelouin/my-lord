@@ -15,5 +15,7 @@ Make sure the Docker service is started, then:
 
 ```sh
 docker pull rbelouin/music-suite:latest # run it once, it may take a few minutes
-docker run -it --rm -v $PWD/scores:/root/scores rbelouin/music-suite /bin/bash -c "cd scores/ && music2pdf my-lord.music"
+make pdf
+make midi
+make [all] # generate a PDF and a MIDI file
 ```
